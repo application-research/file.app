@@ -27,6 +27,13 @@ const work = async () => {
 
 console.log(`RUNNING: ${NAME} NODE_ENV=${process.env.NODE_ENV}`);
 
-work();
+// Add an await to finish the DB operations before reporting finished
+// Note: This may not be necessary if there is no succeeding operation
+// Wrap around in an async function to avoid errors for using await
+// outside of the async function
+// (IIFE - immediately invoked function exp)
+(async function() {
+  await work();
+})();
 
 console.log(`FINISHED: ${NAME} NODE_ENV=${process.env.NODE_ENV}`);
